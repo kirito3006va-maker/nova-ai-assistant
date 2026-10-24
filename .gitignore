@@ -1,0 +1,25 @@
+# Credenciales y datos privados
+/.env
+/owner.json
+/data/
+/outbox/
+/inbox/
+/gh-device-auth.log
+/github-push-helper.ps1
+
+# Dependencias y binarios pesados
+node_modules/
+bin/*.exe
+*.log
+*.apk
+test-wpf.exe
+
+# Android Gradle & Build Artifacts
+nova-android/.gradle/
+nova-android/.kotlin/
+nova-android/build/
+nova-android/app/build/
+nova-android/local.properties
+*.iml
+.idea/
+.DS_Store

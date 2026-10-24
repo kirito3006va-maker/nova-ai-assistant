@@ -1,0 +1,266 @@
+:root {
+  --bg-deep: #05050b;
+  --bg-card: rgba(12, 12, 24, 0.94);
+  --border-neon: rgba(168, 85, 247, 0.35);
+  --neon-magenta: #ec4899;
+  --neon-purple: #a855f7;
+  --neon-cyan: #06b6d4;
+  --text-main: #f8fafc;
+  --text-dim: #94a3b8;
+  --font-main: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+body.widget-body {
+  background-color: transparent;
+  color: var(--text-main);
+  font-family: var(--font-main);
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+}
+
+.widget-card {
+  width: 100%;
+  height: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-neon);
+  border-radius: 18px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.8), 0 0 15px rgba(236, 72, 153, 0.25);
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Header del Widget */
+.widget-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(168, 85, 247, 0.15);
+  -webkit-app-region: drag;
+}
+
+.widget-brand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.widget-pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--neon-magenta);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--neon-magenta);
+  animation: pulse-dot 1.8s infinite ease-in-out;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.6; }
+}
+
+.widget-title {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  background: linear-gradient(135deg, var(--neon-magenta), var(--neon-purple), var(--neon-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.widget-mode-badge {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  padding: 2px 6px;
+  background: rgba(168, 85, 247, 0.15);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  border-radius: 10px;
+  color: var(--neon-cyan);
+  letter-spacing: 0.5px;
+}
+
+.widget-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  -webkit-app-region: no-drag;
+}
+
+.widget-icon-btn {
+  background: transparent;
+  border: none;
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  color: var(--text-dim);
+}
+
+.widget-icon-btn:hover {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 5px var(--neon-magenta));
+}
+
+.widget-icon-btn.active {
+  color: var(--neon-magenta);
+  text-shadow: 0 0 8px var(--neon-magenta);
+}
+
+/* Área Central de la Esfera */
+.widget-orb-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  position: relative;
+  cursor: pointer;
+}
+
+.widget-canvas-wrapper {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#orbCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.widget-orb-core {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.35) 0%, rgba(168, 85, 247, 0.12) 65%, transparent 100%);
+  border: 1px solid rgba(236, 72, 153, 0.45);
+  box-shadow: 0 0 18px rgba(236, 72, 153, 0.5), inset 0 0 10px rgba(168, 85, 247, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: auto;
+}
+
+.widget-orb-core:hover {
+  transform: scale(1.12);
+  box-shadow: 0 0 25px rgba(236, 72, 153, 0.8);
+}
+
+.widget-mic-svg {
+  width: 20px;
+  height: 20px;
+  color: var(--text-main);
+  filter: drop-shadow(0 0 4px var(--neon-magenta));
+}
+
+/* Barra VU de Sonido */
+.widget-vu-container {
+  width: 70px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.widget-vu-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #10b981, #f59e0b, #ec4899);
+  transition: width 0.08s ease;
+  border-radius: 3px;
+}
+
+/* Subtítulo Dinámico */
+.widget-caption-box {
+  text-align: center;
+  padding: 4px 6px;
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.widget-caption-text {
+  font-size: 0.8rem;
+  line-height: 1.35;
+  color: var(--text-main);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+  max-height: 48px;
+  overflow-y: auto;
+  transition: all 0.2s ease;
+}
+
+/* Input Drawer Desplegable */
+.widget-input-drawer {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  background: rgba(20, 20, 36, 0.9);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  border-radius: 12px;
+  padding: 4px 8px;
+  margin-top: 4px;
+}
+
+.widget-input-drawer.open {
+  display: flex;
+}
+
+#widgetInputText {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-main);
+  font-family: var(--font-main);
+  font-size: 0.78rem;
+}
+
+#widgetInputText::placeholder {
+  color: rgba(148, 163, 184, 0.6);
+  font-size: 0.74rem;
+}
+
+#btnWidgetSend {
+  background: transparent;
+  border: none;
+  color: var(--neon-magenta);
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: transform 0.2s;
+}
+
+#btnWidgetSend:hover {
+  transform: scale(1.2);
+}

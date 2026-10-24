@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Halo Azul Eléctrico -->
+    <path
+        android:fillColor="#330055FF"
+        android:pathData="M54,54m-32,0a32,32 0,1 1,64 0a32,32 0,1 1,-64 0" />
+    <!-- Anillo Azul Relámpago -->
+    <path
+        android:fillColor="#8800C8FF"
+        android:pathData="M54,54m-23,0a23,23 0,1 1,46 0a23,23 0,1 1,-46 0" />
+    <!-- Núcleo Rojo Eléctrico -->
+    <path
+        android:fillColor="#FFFF0033"
+        android:pathData="M54,54m-14,0a14,14 0,1 1,28 0a14,14 0,1 1,-28 0" />
+    <!-- Destello central -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M54,54m-5,0a5,5 0,1 1,10 0a5,5 0,1 1,-10 0" />
+</vector>

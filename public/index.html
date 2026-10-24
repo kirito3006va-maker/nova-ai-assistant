@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NOVA // Asistente Personal</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Outfit:wght@300;400;600;700;900&display=swap"
+    rel="stylesheet">
+</head>
+
+<body class="cyber-theme">
+  <!-- Fondo con rejilla holográfica -->
+  <div class="hologram-grid"></div>
+  <div class="ambient-glow"></div>
+
+  <!-- Barra Superior Compacta para Laptop -->
+  <header class="hud-header">
+    <div class="brand">
+      <div class="brand-pill">
+        <span class="pulse-dot"></span>
+        <span class="brand-name">NOVA</span>
+      </div>
+      <span class="system-target">ASISTENTE PERSONAL • MANOS LIBRES ACTIVO</span>
+    </div>
+
+    <div class="hud-center-status">
+      <div class="status-indicator" id="statusPill">
+        <span class="status-icon">✨</span>
+        <span class="status-text" id="statusLabel">SIEMPRE ATENTA</span>
+      </div>
+    </div>
+
+    <div class="hud-right">
+      <div class="clock-badge">
+        <span class="clock-label">LIMA, PERÚ</span>
+        <span class="clock-time" id="limaClock">--:--:--</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contenedor Principal Adaptado a Pantalla de Laptop -->
+  <main class="orb-container">
+    <div class="canvas-wrapper">
+      <canvas id="orbCanvas"></canvas>
+      <div class="orb-core-interactive" id="orbTouchArea"
+        title="Escucha automática activa (haz clic para hablar o pausar)">
+        <div class="core-wave"></div>
+        <div class="core-glow"></div>
+        <div class="mic-icon-center">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+            <line x1="12" y1="19" x2="12" y2="23"></line>
+            <line x1="8" y1="23" x2="16" y2="23"></line>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Subtítulo Dinámico de Conversación -->
+    <div class="voice-captions-container">
+      <div class="voice-speaker-tag" id="speakerTag">NOVA • WAKE WORD "NOVA"</div>
+      <p class="voice-caption-text" id="captionText">"En reposo. Di 'Nova' para darme una orden..."</p>
+    </div>
+
+    <!-- Barra de Conversación Interactiva (Wake Word + Texto) -->
+    <div class="hud-chat-interactive-bar">
+      <button class="hud-mic-action-btn" id="btnPushToTalk"
+        title="Di 'Nova' para activarme automáticamente, o haz clic para hablar directamente.">
+        <span class="hud-mic-icon" id="micIconGlyph">🎙️</span>
+        <span class="hud-mic-text" id="micStatusText">ESPERANDO 'NOVA'</span>
+        <span class="mic-live-vu" id="micLiveVu" title="Nivel de sonido en vivo"><span class="mic-live-vu-fill" id="micLiveVuFill"></span></span>
+      </button>
+
+      <div class="hud-input-box-wrapper">
+        <input type="text" id="hudInputText" placeholder="Di 'Nova' en voz alta o escribe una orden aquí..."
+          autocomplete="off" />
+        <button id="btnSendHudText" class="hud-send-btn" title="Enviar mensaje (Enter)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+            stroke-linejoin="round" class="send-icon-svg">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </div>
+
+      <label class="hud-continuous-toggle"
+        title="Modo Wake Word: Solo se activa cuando dices 'Nova' o cuando continúas la conversación">
+        <input type="checkbox" id="chkContinuousMode" checked />
+        <span class="toggle-slider-round"></span>
+        <span class="toggle-label-text">Wake Word</span>
+      </label>
+    </div>
+  </main>
+
+  <!-- Barra Inferior Compacta -->
+  <footer class="hud-footer">
+    <div class="voice-control-group">
+      <button class="voice-btn active" id="btnToggleMic">
+        <span class="btn-dot"></span>
+        <span id="btnMicText">🟢 Escucha Automática Activa</span>
+      </button>
+
+      <div class="voice-engine-tag">
+        <span>VOZ:</span>
+        <select id="voiceSelect" class="voice-dropdown">
+          <option value="elevenlabs" selected>✨ ElevenLabs Humana</option>
+          <option value="es-PE">Local (Español)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="quick-tools-group">
+      <button class="pill-tool-btn" data-action="intranet">🌐 Intranet</button>
+      <button class="pill-tool-btn" data-action="music">🎵 Música</button>
+      <button class="pill-tool-btn" data-action="video">🎬 YouTube</button>
+      <button class="pill-tool-btn" data-action="discord">💬 Discord</button>
+      <button class="pill-tool-btn" data-action="telemetry">⚡ Estado</button>
+      <button class="pill-tool-btn" id="btnToggleDrawer">📜 Historial & Agenda</button>
+    </div>
+  </footer>
+
+  <!-- Panel Lateral Desplegable: Telemetría, Agenda y Chat -->
+  <aside class="hud-drawer" id="hudDrawer">
+    <div class="drawer-header">
+      <h3>AGENDA & HISTORIAL DE NOVA</h3>
+      <button class="close-btn" id="btnCloseDrawer">✕</button>
+    </div>
+
+    <div class="drawer-content">
+      <!-- Tarjetas de Telemetría -->
+      <section class="drawer-section">
+        <h4 class="section-title">⚡ TELEMETRÍA EN VIVO</h4>
+        <div class="telemetry-grid">
+          <div class="tele-card">
+            <span class="tele-title">GPU</span>
+            <span class="tele-val highlight" id="gpuTemp">-- °C</span>
+            <span class="tele-sub" id="gpuWatts">-- W | VRAM: --</span>
+          </div>
+          <div class="tele-card">
+            <span class="tele-title">CPU</span>
+            <span class="tele-val" id="cpuLoad">-- %</span>
+            <span class="tele-sub">Carga Actual</span>
+          </div>
+          <div class="tele-card">
+            <span class="tele-title">RAM</span>
+            <span class="tele-val" id="ramUsed">-- GB</span>
+            <span class="tele-sub" id="ramPct">-- %</span>
+          </div>
+          <div class="tele-card">
+            <span class="tele-title">BATERÍA</span>
+            <span class="tele-val" id="batteryVal">-- %</span>
+            <span class="tele-sub" id="batteryState">Cargando ⚡</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Agenda en Perú -->
+      <section class="drawer-section">
+        <h4 class="section-title">📅 PRÓXIMOS RECORDATORIOS (LIMA)</h4>
+        <div class="agenda-list" id="agendaList">
+          <div class="empty-hint">Sin recordatorios pendientes para hoy.</div>
+        </div>
+      </section>
+
+      <!-- Transcripción / Mensajes -->
+      <section class="drawer-section">
+        <h4 class="section-title">💬 REGISTRO DE CONVERSACIÓN</h4>
+        <div class="chat-log" id="chatLog">
+          <div class="chat-msg nova">
+            <span class="sender">NOVA</span>
+            <p>Hola Kirito, estoy atenta a tus órdenes por voz o texto.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </aside>
+
+  <script src="orb.js"></script>
+</body>
+
+</html>

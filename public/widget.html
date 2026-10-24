@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nova Mini Widget</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="widget.css">
+</head>
+<body class="widget-body">
+  <div class="widget-card" id="widgetCard">
+    <!-- Barra Superior del Widget (Arrastrable / Controles) -->
+    <header class="widget-header">
+      <div class="widget-brand">
+        <span class="widget-pulse-dot" id="widgetPulse"></span>
+        <span class="widget-title">NOVA</span>
+        <span class="widget-mode-badge" id="widgetStatus">REPOSO</span>
+      </div>
+      <div class="widget-actions">
+        <button class="widget-icon-btn" id="btnToggleInput" title="Abrir/Cerrar teclado">⌨️</button>
+        <button class="widget-icon-btn" id="btnTogglePin" title="Fijar siempre visible">📌</button>
+      </div>
+    </header>
+
+    <!-- Mini Esfera Holográfica Interactiva -->
+    <main class="widget-orb-area" id="orbTouchArea">
+      <div class="widget-canvas-wrapper">
+        <canvas id="orbCanvas"></canvas>
+        <div class="widget-orb-core" id="orbCore">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="widget-mic-svg">
+            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+            <line x1="12" y1="19" x2="12" y2="22"></line>
+          </svg>
+        </div>
+      </div>
+      <!-- Barra VU de Sonido en Vivo -->
+      <div class="widget-vu-container" title="Nivel de voz">
+        <div class="widget-vu-fill" id="widgetVuFill"></div>
+      </div>
+    </main>
+
+    <!-- Subtítulo y Respuesta Dinámica -->
+    <div class="widget-caption-box">
+      <p class="widget-caption-text" id="captionText">Di "Nova" para darme una orden...</p>
+    </div>
+
+    <!-- Mini Input Desplegable de Texto -->
+    <div class="widget-input-drawer" id="widgetInputDrawer">
+      <input type="text" id="widgetInputText" placeholder="Escribe aquí tu orden..." autocomplete="off">
+      <button id="btnWidgetSend">➤</button>
+    </div>
+  </div>
+
+  <script src="widget.js"></script>
+</body>
+</html>
